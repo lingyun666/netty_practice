@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a3657f11-b0af-4480-bdfb-f33ed6ef2dd6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Netty-md/01 二进制.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Netty-md/02 Netty源码包结构.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Netty-md/03 Netty中的EventLoopGroup是什么.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Netty-md/04 Netty底层源码解析-Netty服务端启动分析.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Netty-md/05 Netty底层源码解析-NioEventLoop原理分析.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Netty-md/06 Netty底层源码解析-ChannelPipeline分析（上）.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Netty-md/07 Netty底层源码解析-ChannelPipeline分析（下）.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Netty-md/08 Netty底层源码解析-NioServerSocketChannel接受数据原理分析.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Netty-md/13 Netty底层源码解析-初始Netty及其架构.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../netty-patch-14/common/src/main/java/io/netty/util/concurrent/EventExecutorChooserFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/common/src/main/java/io/netty/util/concurrent/EventExecutorChooserFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../netty-patch-14/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../netty-patch-14/example/src/main/java/io/netty/example/echo/EchoServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/example/src/main/java/io/netty/example/echo/EchoServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/channel/ReflectiveChannelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/channel/ReflectiveChannelFactory.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2XFVXqhTdypQJiWk02B716HB7u5" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Project/github/netty/source/netty_practice/Netty-Spring",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "preferences.sourceCode",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.NettyClient">
+    <configuration name="NettyClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.bruis.learnnetty.netty.connections.longconnections.NettyClient" />
+      <module name="learnnetty" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bruis.learnnetty.netty.connections.longconnections.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NettyServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.bruis.learnnetty.netty.connections.longconnections.NettyServer" />
+      <module name="learnnetty" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bruis.learnnetty.netty.connections.longconnections.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LearnnettyApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="learnnetty" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.bruis.learnnetty.LearnnettyApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.NettyClient" />
+        <item itemvalue="Application.NettyServer" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a3657f11-b0af-4480-bdfb-f33ed6ef2dd6" name="Changes" comment="" />
+      <created>1698224856933</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698224856933</updated>
+      <workItem from="1698224858065" duration="1059000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

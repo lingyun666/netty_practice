@@ -43,17 +43,19 @@ import java.util.concurrent.TimeUnit;
  */
 public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerChannel> {
 
+    //exp: 类变量: 在类首次被加载进JVM时执行一次!
     private static final InternalLogger logger = InternalLoggerFactory.getInstance(ServerBootstrap.class);
-
-    private final Map<ChannelOption<?>, Object> childOptions = new ConcurrentHashMap<ChannelOption<?>, Object>();
+    
+    //exp: 成员变量:每次new对象时执行一次!
+    private final Map<ChannelOption<?>, Object> childOptions = new ConcurrentHashMap<ChannelOption<?>, Object>();//topro: 学习数据结构与算法!
     private final Map<AttributeKey<?>, Object> childAttrs = new ConcurrentHashMap<AttributeKey<?>, Object>();
     private final ServerBootstrapConfig config = new ServerBootstrapConfig(this);
     private volatile EventLoopGroup childGroup;
     private volatile ChannelHandler childHandler;
 
-    public ServerBootstrap() { }
+    public ServerBootstrap() { }//exp: 无参构造器,构造出的对象只有上数成员变量指定的初始值的对象
 
-    private ServerBootstrap(ServerBootstrap bootstrap) {
+    private ServerBootstrap(ServerBootstrap bootstrap) {// exp: 有参构造器: 在构造对象时可以指定某些属性值
         super(bootstrap);
         childGroup = bootstrap.childGroup;
         childHandler = bootstrap.childHandler;
@@ -75,11 +77,13 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
      * {@link Channel}'s.
      */
     public ServerBootstrap group(EventLoopGroup parentGroup, EventLoopGroup childGroup) {
+        //exp: 用户传入的parentGroup: 调用父类的group()方法, 将其赋值给父类的parentGroup属性 (以备后用)
         super.group(parentGroup);
         ObjectUtil.checkNotNull(childGroup, "childGroup");
         if (this.childGroup != null) {
             throw new IllegalStateException("childGroup set already");
         }
+        //exp: 用户传入的子group: 赋值给自己的childGroup属性 (以备后用)
         this.childGroup = childGroup;
         return this;
     }
@@ -169,6 +173,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
         return this;
     }
 
+    // 不可使用外部类非static属性/方法.
     private static class ServerBootstrapAcceptor extends ChannelInboundHandlerAdapter {
 
         private final EventLoopGroup childGroup;
@@ -201,7 +206,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
         @Override
         @SuppressWarnings("unchecked")
         public void channelRead(ChannelHandlerContext ctx, Object msg) {
-            final Channel child = (Channel) msg;
+            final Channel child = (Channel) msg;// exp: 这里的msg就是一种channel,且是socketChannel
 
             child.pipeline().addLast(childHandler);
 
@@ -209,6 +214,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
             setAttributes(child, childAttrs);
 
             try {
+                // exp: 将socketChannel注册到childGroup里!
                 childGroup.register(child).addListener(new ChannelFutureListener() {
                     @Override
                     public void operationComplete(ChannelFuture future) throws Exception {
@@ -272,7 +278,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
     }
 
     @Override
-    public final ServerBootstrapConfig config() {
+    public final ServerBootstrapConfig config() { // 获取对象的config属性
         return config;
     }
 }

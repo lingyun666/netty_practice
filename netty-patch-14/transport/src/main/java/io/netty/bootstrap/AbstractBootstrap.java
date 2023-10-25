@@ -75,12 +75,12 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
         this.group = group;
         return self();
     }
-
+    
     @SuppressWarnings("unchecked")
     private B self() {
         return (B) this;
     }
-
+    
     /**
      * The {@link Class} which is used to create {@link Channel} instances from.
      * You either use this or {@link #channelFactory(io.netty.channel.ChannelFactory)} if your
@@ -283,11 +283,17 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
             return promise;
         }
     }
-
+    /*
+        1.
+        2.
+        3.
+     */
     final ChannelFuture initAndRegister() {
         Channel channel = null;
         try {
+            //exp: 利用初始化构建阶段new的抽象工厂, new出ssc
             channel = channelFactory.newChannel();
+            //exp: 初始化
             init(channel);
         } catch (Throwable t) {
             if (channel != null) {
@@ -299,7 +305,8 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
             // as the Channel is not registered yet we need to force the usage of the GlobalEventExecutor
             return new DefaultChannelPromise(new FailedChannel(), GlobalEventExecutor.INSTANCE).setFailure(t);
         }
-        //开始register
+        //exp: 开始register
+        //exp: 这里的channel是serverSocketChannel. 这里将ssc注册到bossGroup上,而ssc又会生产socketChannel,注册到workerGroup上
         ChannelFuture regFuture = config().group().register(channel);
         if (regFuture.cause() != null) {
             if (channel.isRegistered()) {
@@ -374,6 +381,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     }
 
     final SocketAddress localAddress() {
+        
         return localAddress;
     }
 
