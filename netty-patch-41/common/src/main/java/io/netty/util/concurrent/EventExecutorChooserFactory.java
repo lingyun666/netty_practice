@@ -32,7 +32,7 @@ public interface EventExecutorChooserFactory {
      * Chooses the next {@link EventExecutor} to use.
      */
     @UnstableApi
-    interface EventExecutorChooser {
+    interface EventExecutorChooser {// exp: 这是个接口, 一般都有多个实现
 
         /**
          * Returns the new {@link EventExecutor} to use.

@@ -56,8 +56,12 @@ public final class EchoServer {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         final EchoServerHandler serverHandler = new EchoServerHandler();
         try {
+            // 这里new了一个ServerBootstrap对象
             ServerBootstrap b = new ServerBootstrap();
+            // I.初始化构造阶段
+            // exp: 设置reactor模式: boss+worker
             b.group(bossGroup, workerGroup)
+                    //exp: 1.用户指定ssc类型   2. 这一步netty源码会new一个抽象工厂 (下面调用bind()时会执行工厂的newChannel()方法创建ssc)
              .channel(NioServerSocketChannel.class)
              .option(ChannelOption.SO_BACKLOG, 100)
              .handler(new LoggingHandler(LogLevel.INFO))
