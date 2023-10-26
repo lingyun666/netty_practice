@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3657f11-b0af-4480-bdfb-f33ed6ef2dd6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Netty-md/01 二进制.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Netty-md/02 Netty源码包结构.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Netty-md/03 Netty中的EventLoopGroup是什么.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Netty-md/04 Netty底层源码解析-Netty服务端启动分析.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Netty-md/05 Netty底层源码解析-NioEventLoop原理分析.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Netty-md/06 Netty底层源码解析-ChannelPipeline分析（上）.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Netty-md/07 Netty底层源码解析-ChannelPipeline分析（下）.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Netty-md/08 Netty底层源码解析-NioServerSocketChannel接受数据原理分析.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Netty-md/13 Netty底层源码解析-初始Netty及其架构.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../netty-patch-14/common/src/main/java/io/netty/util/concurrent/EventExecutorChooserFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/common/src/main/java/io/netty/util/concurrent/EventExecutorChooserFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../netty-patch-14/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/common/src/main/java/io/netty/util/concurrent/MultithreadEventExecutorGroup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../netty-patch-14/example/src/main/java/io/netty/example/echo/EchoServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/example/src/main/java/io/netty/example/echo/EchoServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/bootstrap/ServerBootstrap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/channel/ReflectiveChannelFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../netty-patch-14/transport/src/main/java/io/netty/channel/ReflectiveChannelFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../netty-patch-14/common/src/main/java/io/netty/util/concurrent/DefaultEventExecutorChooserFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../netty-patch-14/common/src/main/java/io/netty/util/concurrent/DefaultEventExecutorChooserFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../netty-patch-14/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../netty-patch-14/transport/src/main/java/io/netty/bootstrap/AbstractBootstrap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +26,7 @@
     </option>
   </component>
   <component name="ProjectId" id="2XFVXqhTdypQJiWk02B716HB7u5" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -52,12 +39,12 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Project/github/netty/source/netty_practice/Netty-Spring",
+    "last_opened_file_path": "C:/Project/github/netty/source/netty_practice/JavaSourceCodeLearning/Netty-Spring",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.sourceCode",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -111,6 +98,7 @@
       <option name="presentableId" value="Default" />
       <updated>1698224856933</updated>
       <workItem from="1698224858065" duration="1059000" />
+      <workItem from="1698226035204" duration="636000" />
     </task>
     <servers />
   </component>
@@ -119,5 +107,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
   </component>
 </project>
