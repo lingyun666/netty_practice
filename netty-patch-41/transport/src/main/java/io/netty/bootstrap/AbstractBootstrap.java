@@ -301,8 +301,8 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
             // as the Channel is not registered yet we need to force the usage of the GlobalEventExecutor
             return new DefaultChannelPromise(new FailedChannel(), GlobalEventExecutor.INSTANCE).setFailure(t);
         }
-        //exp: 开始register
-        //exp: 这里的channel是serverSocketChannel. 这里将ssc注册到bossGroup上,而ssc又会生产socketChannel,注册到workerGroup上
+        //exp: 作用: 开始register--将ssc注册到bossGroup上,而ssc又会生产socketChannel,注册到workerGroup上
+        //exp: 会[选择]一个[eventLoop-即线程]去执行; 这里的channel是serverSocketChannel
         ChannelFuture regFuture = config().group().register(channel);
         if (regFuture.cause() != null) {
             if (channel.isRegistered()) {

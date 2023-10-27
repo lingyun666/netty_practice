@@ -56,6 +56,7 @@ public class NioEventLoopGroup extends MultithreadEventLoopGroup {
     }
 
     public NioEventLoopGroup(int nThreads, Executor executor) {
+        //exp: 从这里往下溯源, 可以看到netty对跨平台调用的支持
         //默认selector,最终实现类似：https://github.com/frohoff/jdk8u-jdk/blob/master/src/macosx/classes/sun/nio/ch/DefaultSelectorProvider.java
         //basic flow: 1 java.nio.channels.spi.SelectorProvider 2 META-INF/services 3 default
         this(nThreads, executor, SelectorProvider.provider());

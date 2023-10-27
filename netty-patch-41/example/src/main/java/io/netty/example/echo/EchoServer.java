@@ -16,22 +16,23 @@
 package io.netty.example.echo;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
 import io.netty.buffer.UnpooledByteBufAllocator;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.epoll.EpollEventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioChannelOption;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.ByteToMessageCodec;
+import io.netty.handler.codec.ByteToMessageDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
+
+import java.util.List;
 
 /**
  * Echoes back any received data from a client.
@@ -51,7 +52,8 @@ public final class EchoServer {
             sslCtx = null;
         }
 
-        // Configure the server.
+        // Configure the server
+        // 创建eventLoopGroup
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         final EchoServerHandler serverHandler = new EchoServerHandler();
@@ -80,6 +82,12 @@ public final class EchoServer {
                      }
                      //p.addLast(new LoggingHandler(LogLevel.INFO));
                      p.addLast(serverHandler);
+                     p.addLast(new ByteToMessageDecoder() {
+                         @Override
+                         protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) throws Exception {
+        
+                         }
+                     });
                  }
              });
 

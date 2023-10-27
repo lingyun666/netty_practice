@@ -40,7 +40,7 @@ import java.util.List;
  */
 public class FixedLengthFrameDecoder extends ByteToMessageDecoder {
 
-    private final int frameLength;
+    private final int frameLength;//exp: 这个非常简单, 就一个长度字段
 
     /**
      * Creates a new instance.
@@ -64,15 +64,17 @@ public class FixedLengthFrameDecoder extends ByteToMessageDecoder {
      * Create a frame out of the {@link ByteBuf} and return it.
      *
      * @param   ctx             the {@link ChannelHandlerContext} which this {@link ByteToMessageDecoder} belongs to
-     * @param   in              the {@link ByteBuf} from which to read data
+     * @param   in              the {@link ByteBuf} from which to read data  exp: 数据收集器里的数据
      * @return  frame           the {@link ByteBuf} which represent the frame or {@code null} if no frame could
      *                          be created.
      */
     protected Object decode(
             @SuppressWarnings("UnusedParameters") ChannelHandlerContext ctx, ByteBuf in) throws Exception {
+        //exp: 如果数据收集器里的数据<我们定义的内容长度, 则不解码数据,直接返回; 否则解码
         if (in.readableBytes() < frameLength) {
             return null;
         } else {
+            // exp: 从当前累加器中截取这个长度的数值
             return in.readRetainedSlice(frameLength);
         }
     }

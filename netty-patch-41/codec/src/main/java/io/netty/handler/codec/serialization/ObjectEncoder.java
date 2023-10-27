@@ -26,6 +26,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
+ * exp: Netty的序列化
  * An encoder which serializes a Java object into a {@link ByteBuf}.
  * <p>
  * Please note that the serialized form this encoder produces is not
@@ -45,7 +46,7 @@ public class ObjectEncoder extends MessageToByteEncoder<Serializable> {
         ObjectOutputStream oout = null;
         try {
             bout.write(LENGTH_PLACEHOLDER);
-            oout = new CompactObjectOutputStream(bout);
+            oout = new CompactObjectOutputStream(bout);//exp: compact压缩-比原空间要小
             oout.writeObject(msg);
             oout.flush();
         } finally {
@@ -58,6 +59,6 @@ public class ObjectEncoder extends MessageToByteEncoder<Serializable> {
 
         int endIdx = out.writerIndex();
 
-        out.setInt(startIdx, endIdx - startIdx - 4); //設置長度
+        out.setInt(startIdx, endIdx - startIdx - 4); //设置长度
     }
 }

@@ -64,7 +64,7 @@ public class ProtobufEncoder extends MessageToMessageEncoder<MessageLiteOrBuilde
     protected void encode(ChannelHandlerContext ctx, MessageLiteOrBuilder msg, List<Object> out)
             throws Exception {
         if (msg instanceof MessageLite) {
-            out.add(wrappedBuffer(((MessageLite) msg).toByteArray()));
+            out.add(wrappedBuffer(((MessageLite) msg).toByteArray()));//exp: 这里就是常规序列化的方式,逻辑简单
             return;
         }
         if (msg instanceof MessageLite.Builder) {

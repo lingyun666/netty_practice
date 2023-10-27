@@ -53,7 +53,8 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
         }
 
         @Override
-        //executors总数必须是2的幂次方（2，4，8...等）才会用,&运算效率更高,同时当idx累加成最大值之后，相比较通用的方式（GenericEventExecutorChooser），更公平
+        //exp: executors总数必须是2的幂次方（2，4，8...等）才会用,&运算效率更高,
+        //exp: 同时当idx累加成最大值之后，相比较通用的方式（GenericEventExecutorChooser），更公平
         public EventExecutor next() {
             return executors[idx.getAndIncrement() & executors.length - 1];
         }
@@ -69,8 +70,8 @@ public final class DefaultEventExecutorChooserFactory implements EventExecutorCh
 
         @Override
         public EventExecutor next() {
-            //递增、取模，取正值，不然可能是负数，另外：有个非常小的缺点，当idx累加成最大值后，有短暂的不公平：
-            //1，2，3，4，5，6，7，0，7（注意这里不是1，而是7，然而往前的第二个也是7，所以不够公平），6，5
+            //exp: 递增、取余，取正值，不然可能是负数，另外：有个非常小的缺点，当idx累加成最大值后，有短暂的不公平：
+            //exp: 1，2，3，4，5，6，7，0，7（注意这里不是1，而是7，然而往前的第二个也是7，所以不够公平），6，5
             return executors[Math.abs(idx.getAndIncrement() % executors.length)];
         }
     }

@@ -116,7 +116,7 @@ public class ProtobufDecoder extends MessageToMessageDecoder<ByteBuf> {
             offset = 0;
         }
 
-        //带extension
+        //exp: 带extension(扩展)
         if (extensionRegistry == null) {
             //HAS_PARSER when >protobuf 2.5.0
             if (HAS_PARSER) {

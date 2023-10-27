@@ -24,6 +24,9 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.ssl.SslContext;
 
+/**
+ * 世界时钟: protobuf使用示例
+ */
 public class WorldClockClientInitializer extends ChannelInitializer<SocketChannel> {
 
     private final SslContext sslCtx;
@@ -39,12 +42,13 @@ public class WorldClockClientInitializer extends ChannelInitializer<SocketChanne
             p.addLast(sslCtx.newHandler(ch.alloc(), WorldClockClient.HOST, WorldClockClient.PORT));
         }
 
-        p.addLast(new ProtobufVarint32FrameDecoder());
+        p.addLast(new ProtobufVarint32FrameDecoder());//exp: 1.一次解码器(byte[]->buf)
+        //exp: 2.二次解码器(buf->object)
         p.addLast(new ProtobufDecoder(WorldClockProtocol.LocalTimes.getDefaultInstance()));
 
-        p.addLast(new ProtobufVarint32LengthFieldPrepender());
-        p.addLast(new ProtobufEncoder());
+        p.addLast(new ProtobufVarint32LengthFieldPrepender());//exp: 5.一次编码器(buf->byte[])
+        p.addLast(new ProtobufEncoder());//exp: 4.二次编码器(obj->buf)
 
-        p.addLast(new WorldClockClientHandler());
+        p.addLast(new WorldClockClientHandler());//exp: 3.处理obj
     }
 }

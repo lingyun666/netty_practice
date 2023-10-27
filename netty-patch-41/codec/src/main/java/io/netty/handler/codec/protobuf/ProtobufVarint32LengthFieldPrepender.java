@@ -38,6 +38,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
  * @see CodedOutputByteBufferNano
  */
 @Sharable
+//exp: 通过类名看该类功能: protobuf的支持;Varint32-长度可变;prepender-长度字段是在前面的(apend-在后面追加)
 public class ProtobufVarint32LengthFieldPrepender extends MessageToByteEncoder<ByteBuf> {
 
     @Override

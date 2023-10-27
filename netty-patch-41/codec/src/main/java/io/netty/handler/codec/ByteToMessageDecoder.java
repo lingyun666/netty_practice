@@ -47,7 +47,7 @@ import java.util.List;
  * </pre>
  *
  * <h3>Frame detection</h3>
- * <p>
+ * <p> exp: 常用三种解码器如下: 点击去看起常用参数
  * Generally frame detection should be handled earlier in the pipeline by adding a
  * {@link DelimiterBasedFrameDecoder}, {@link FixedLengthFrameDecoder}, {@link LengthFieldBasedFrameDecoder},
  * or {@link LineBasedFrameDecoder}.
@@ -73,6 +73,7 @@ import java.util.List;
 public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter {
 
     /**
+     * exp: 数据累加器 -- 此处使用内存复制的方式  (Netty默认)
      * Cumulate {@link ByteBuf}s by merge them into one {@link ByteBuf}'s, using memory copies.
      */
     public static final Cumulator MERGE_CUMULATOR = new Cumulator() {
@@ -81,7 +82,7 @@ public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter 
             try {
                 final ByteBuf buffer;
                 if (cumulation.writerIndex() > cumulation.maxCapacity() - in.readableBytes()
-                    || cumulation.refCnt() > 1 || cumulation.isReadOnly()) { //按需扩容
+                    || cumulation.refCnt() > 1 || cumulation.isReadOnly()) { //exp: 空间不够了, 则按需扩容
                     // Expand cumulation (by replace it) when either there is not more room in the buffer
                     // or if the refCnt is greater then 1 which may happen when the user use slice().retain() or
                     // duplicate().retain() or if its read-only.
@@ -89,11 +90,11 @@ public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter 
                     // See:
                     // - https://github.com/netty/netty/issues/2327
                     // - https://github.com/netty/netty/issues/1764
-                    buffer = expandCumulation(alloc, cumulation, in.readableBytes());
+                    buffer = expandCumulation(alloc, cumulation, in.readableBytes());//exp: 空间不够则进行扩容
                 } else {
                     buffer = cumulation;
                 }
-                buffer.writeBytes(in);
+                buffer.writeBytes(in);//exp: 空间足够了,将数据写入buf
                 return buffer;
             } finally {
                 // We must release in in all cases as otherwise it may produce a leak if writeBytes(...) throw
@@ -104,11 +105,12 @@ public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter 
     };
 
     /**
+     * exp: 此种方式相比merge_cumulator,不采用内存复制, 但是没前者通用, 且效率并不见得比前者高, 故非默认选项
      * Cumulate {@link ByteBuf}s by add them to a {@link CompositeByteBuf} and so do no memory copy whenever possible.
      * Be aware that {@link CompositeByteBuf} use a more complex indexing implementation so depending on your use-case
      * and the decoder implementation this may be slower then just use the {@link #MERGE_CUMULATOR}.
      */
-    public static final Cumulator COMPOSITE_CUMULATOR = new Cumulator() {
+    public static final Cumulator COMPOSITE_CUMULATOR = new Cumulator() {//exp: 不用内存复制的方式, 而是使用"组合的方式"--提供一个逻辑视图
         @Override
         public ByteBuf cumulate(ByteBufAllocator alloc, ByteBuf cumulation, ByteBuf in) {
             ByteBuf buffer;
@@ -125,14 +127,14 @@ public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter 
                 } else {
                     CompositeByteBuf composite;
 
-                    //创建composite bytebuf，如果已经创建过，就不用了
+                    //exp: 创建composite bytebuf，如果已经创建过，就不用了
                     if (cumulation instanceof CompositeByteBuf) {
                         composite = (CompositeByteBuf) cumulation;
                     } else {
                         composite = alloc.compositeBuffer(Integer.MAX_VALUE);
                         composite.addComponent(true, cumulation);
                     }
-                    //避免内存复制
+                    //exp: addComponent-避免内存复制
                     composite.addComponent(true, in);
                     in = null;
                     buffer = composite;
@@ -152,7 +154,7 @@ public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter 
     private static final byte STATE_CALLING_CHILD_DECODE = 1;
     private static final byte STATE_HANDLER_REMOVED_PENDING = 2;
 
-    ByteBuf cumulation;
+    ByteBuf cumulation; // 数据积累器
     private Cumulator cumulator = MERGE_CUMULATOR;
     private boolean singleDecode;
     private boolean first;
@@ -277,13 +279,14 @@ public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter 
             CodecOutputList out = CodecOutputList.newInstance();
             try {
                 ByteBuf data = (ByteBuf) msg;
-                first = cumulation == null;
-                if (first) {
+                first = cumulation == null; // 在这里初始化first和cumulation
+                if (first) {// 如果是第一批数据, 就放入积累器里
                     cumulation = data;
-                } else {
+                } else {// 如果不是第一批数据, 就累加进积累器
+                    // exp: 2.数据积累器的实现原理在这
                     cumulation = cumulator.cumulate(ctx.alloc(), cumulation, data);
                 }
-                callDecode(ctx, cumulation, out);
+                callDecode(ctx, cumulation, out);//exp: 1.解码原理的实现在这
             } catch (DecoderException e) {
                 throw e;
             } catch (Exception e) {
@@ -420,13 +423,13 @@ public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter 
      * {@link #decode(ChannelHandlerContext, ByteBuf, List)} as long as decoding should take place.
      *
      * @param ctx           the {@link ChannelHandlerContext} which this {@link ByteToMessageDecoder} belongs to
-     * @param in            the {@link ByteBuf} from which to read data
+     * @param in            the {@link ByteBuf} from which to read data   exp: 这个是数据积累器里的数据
      * @param out           the {@link List} to which decoded messages should be added
      */
     protected void callDecode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out) {
         try {
             while (in.isReadable()) {
-                int outSize = out.size();
+                int outSize = out.size();// 0
 
                 if (outSize > 0) {
                     fireChannelRead(ctx, out, outSize);
@@ -444,8 +447,8 @@ public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter 
                 }
 
                 int oldInputLength = in.readableBytes();
-                //decode中时，不能执行完handler remove清理操作。
-                //那decode完之后需要清理数据。
+                //exp: 解码
+                //decode中时，不能执行完handler remove清理操作。那decode完之后需要清理数据。
                 decodeRemovalReentryProtection(ctx, in, out);
 
                 // Check if this handler was removed before continuing the loop.
@@ -485,7 +488,7 @@ public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter 
      * Decode the from one {@link ByteBuf} to an other. This method will be called till either the input
      * {@link ByteBuf} has nothing to read when return from this method or till nothing was read from the input
      * {@link ByteBuf}.
-     *
+     * att: 这里使用了模版模式:抽象类里定义了方法的执行顺序, 具体方法实现逻辑由不同子类自己决定!  FixedLengthFrameDecoder里的decode()是最简单的一种实现方式!
      * @param ctx           the {@link ChannelHandlerContext} which this {@link ByteToMessageDecoder} belongs to
      * @param in            the {@link ByteBuf} from which to read data
      * @param out           the {@link List} to which decoded messages should be added

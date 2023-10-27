@@ -41,11 +41,11 @@ import java.util.List;
  * @see CodedInputByteBufferNano
  */
 
-//Varint = 长度字段的长度可变： 值越小的数字使用越少的字节数
+//exp: Varint = 长度字段的长度可变：值越小的数字使用越少的字节数   (LengthFieldD 的长度字段长度固定,不可变)
 public class ProtobufVarint32FrameDecoder extends ByteToMessageDecoder {
 
     // TODO maxFrameLength + safe skip + fail-fast option
-    //      (just like LengthFieldBasedFrameDecoder)
+    //      (just like LengthFieldBasedFrameDecoder) 即:功能类似 LengthFieldDeco,但并相等
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> out)
@@ -69,7 +69,7 @@ public class ProtobufVarint32FrameDecoder extends ByteToMessageDecoder {
 
     /**
      * Reads variable length 32bit int from buffer
-     *
+     * exp: 这里是具体解析的逻辑
      * @return decoded int if buffers readerIndex has been forwarded else nonsense value
      */
     private static int readRawVarint32(ByteBuf buffer) {
