@@ -94,6 +94,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
      * Allow to specify a {@link ChannelOption} which is used for the {@link Channel} instances once they get created
      * (after the acceptor accepted the {@link Channel}). Use a value of {@code null} to remove a previous set
      * {@link ChannelOption}.
+     * exp: child指的是与客户端进行连接的SocketChannel, 而不是服务端独有的ServerSocketChannel
      */
     public <T> ServerBootstrap childOption(ChannelOption<T> childOption, T value) {
         ObjectUtil.checkNotNull(childOption, "childOption");
@@ -184,7 +185,7 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
         private final Entry<AttributeKey<?>, Object>[] childAttrs;
         private final Runnable enableAutoReadTask;
 
-        ServerBootstrapAcceptor(//接受连接后的后续处理
+        ServerBootstrapAcceptor(//exp: 接收连接后的后续处理
                 final Channel channel, EventLoopGroup childGroup, ChannelHandler childHandler,
                 Entry<ChannelOption<?>, Object>[] childOptions, Entry<AttributeKey<?>, Object>[] childAttrs) {
             this.childGroup = childGroup;
@@ -208,12 +209,12 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
         @Override
         @SuppressWarnings("unchecked")
         public void channelRead(ChannelHandlerContext ctx, Object msg) {
-            // exp: 这里的msg就是一种channel,且是socketChannel
+            // exp: msg--就是一种channel,且是socketChannel
             final Channel child = (Channel) msg;
 
             child.pipeline().addLast(childHandler);
 
-            setChannelOptions(child, childOptions, logger);
+            setChannelOptions(child, childOptions, logger);//exp: 这里将childOptions设置到channel中
             setAttributes(child, childAttrs);
 
             try {

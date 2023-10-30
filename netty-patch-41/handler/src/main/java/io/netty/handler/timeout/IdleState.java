@@ -20,6 +20,7 @@ import io.netty.channel.Channel;
 
 /**
  * An {@link Enum} that represents the idle state of a {@link Channel}.
+ * exp: 三种空闲状态: 读空闲,写空闲,读写都空闲
  */
 public enum IdleState {
     /**

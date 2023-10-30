@@ -98,7 +98,7 @@ public class DefaultSocketChannelConfig extends DefaultChannelConfig
         return super.getOption(option);
     }
 
-    @Override
+    @Override//topro: 这里全是if-else判断, 如果相加参数,则需要改动次数代码
     public <T> boolean setOption(ChannelOption<T> option, T value) {
         validate(option, value);
 
